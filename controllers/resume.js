@@ -13,10 +13,9 @@ const postResume = async (req, res) => {
 
 const getResume = async (req, res) => {
 
-  // console.log(file)
   const userId = req.user.userId
   const resume = await Resume.findOne({ createdBy: userId })
-  console.log(resume)
+
   if (!resume) {
     res.status(404).send("Not found")
   }
