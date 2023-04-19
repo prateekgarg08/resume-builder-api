@@ -12,17 +12,15 @@ const postResume = async (req, res) => {
 }
 
 const getResume = async (req, res) => {
-  const ejsFilePath = path.join(__dirname, '..', 'views', 'try.ejs');
+
   // console.log(file)
   const userId = req.user.userId
   const resume = await Resume.findOne({ createdBy: userId })
-  ejs.renderFile(ejsFilePath, { data: resume }, (err, html) => {
-    if (err) {
-      console.log(err)
-      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("oops")
-    }
-    res.status(200).send(html)
-  })
+  if (!resume) {
+    res.status(404).send("Not found")
+  }
+  res.status(200).json({ ...resume })
+
 }
 
 const updateResume = async (req, res) => {
