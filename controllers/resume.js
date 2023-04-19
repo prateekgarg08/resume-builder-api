@@ -16,10 +16,11 @@ const getResume = async (req, res) => {
   // console.log(file)
   const userId = req.user.userId
   const resume = await Resume.findOne({ createdBy: userId })
+  console.log(resume)
   if (!resume) {
     res.status(404).send("Not found")
   }
-  res.status(200).json({ ...resume })
+  res.status(200).json({ resume })
 
 }
 
